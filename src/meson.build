@@ -244,3 +244,17 @@ if get_option('external').enabled()
         install: true,
     )
 endif
+
+if get_option('pldm').enabled()
+    libpldm_dep = dependency('libpldm', fallback:['libpldm','libpldm_dep'])
+    pldm_srcs = files('PLDMSensorMain.cpp', 'PLDMSensor.cpp')
+    pldm_deps = [ default_deps, thresholds_dep, utils_dep, libpldm_dep ]
+
+    executable(
+        'pldmsensor',
+        sources: pldm_srcs,
+        dependencies: pldm_deps,
+        cpp_args: uring_args,
+        install: true,
+    )
+endif

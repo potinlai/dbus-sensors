@@ -1,0 +1,15 @@
+[Unit]
+Description=PLDM Sensor
+StopWhenUnneeded=false
+Requires=xyz.openbmc_project.EntityManager.service
+After=xyz.openbmc_project.EntityManager.service
+Requires=pldmd.service
+After=pldmd.service
+
+[Service]
+Restart=always
+RestartSec=5
+ExecStart=/usr/bin/pldmsensor
+
+[Install]
+WantedBy=multi-user.target
